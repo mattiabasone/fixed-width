@@ -2,7 +2,7 @@
 
 namespace MattiaBasone\FixedWidth;
 
-#[\Attribute]
+#[\Attribute(\Attribute::TARGET_PROPERTY)]
 readonly class Field
 {
     public const ALIGN_LEFT = 'left';

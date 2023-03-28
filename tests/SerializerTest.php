@@ -28,6 +28,10 @@ class SerializerTest extends TestCase
                 new FakeDTO("Mario", "Rossi", "22", "29000", "ITA", "98AB21"),
                 "Mario     Rossi     22 29000     ITA###98AB21"
             ],
+            [
+                new FakeDTO("Mariæ", "Roßi", "22", "33000000", "ITA", "00098AB21"),
+                "Mariæ     Roßi      22 33000000  ITA00098AB21"
+            ],
         ];
     }
 }
