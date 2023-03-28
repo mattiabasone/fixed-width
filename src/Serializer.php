@@ -32,7 +32,7 @@ class Serializer
             throw EntityNotSerializableException::noFieldAttributes();
         }
 
-        usort($properties, fn (FixedWidthProperty $first, FixedWidthProperty $second) => $first->field->from <=> $second->field->from);
+        $properties = self::sortPropertiesByPosition($properties);
 
         return array_reduce(
             $properties,
@@ -47,6 +47,11 @@ class Serializer
         );
     }
 
+    public function deserialize(string $row): object
+    {
+        return new \stdClass();
+    }
+
     private static function multibyteStringPad(
         string $input,
         int $pad_length,
@@ -56,8 +61,16 @@ class Serializer
     ): string {
         return str_pad(
             $input,
-            strlen($input)-mb_strlen($input,$encoding)+$pad_length,
+            strlen($input)-mb_strlen($input, $encoding) + $pad_length,
             $pad_string,
-            $pad_style);
+            $pad_style
+        );
+    }
+
+    private static function sortPropertiesByPosition(array $properties): array
+    {
+        usort($properties, fn (FixedWidthProperty $first, FixedWidthProperty $second) => $first->field->from <=> $second->field->from);
+
+        return $properties;
     }
 }

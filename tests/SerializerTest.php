@@ -4,6 +4,7 @@ namespace MattiaBasone\FixedWidth\Tests;
 
 use MattiaBasone\FixedWidth\FixedWidth;
 use MattiaBasone\FixedWidth\Serializer;
+use MattiaBasone\FixedWidth\Tests\FakeObjects\FakeDTO;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;

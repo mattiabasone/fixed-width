@@ -1,6 +1,6 @@
 <?php
 
-namespace MattiaBasone\FixedWidth\Tests;
+namespace MattiaBasone\FixedWidth\Tests\FakeObjects;
 
 use MattiaBasone\FixedWidth\Field;
 use MattiaBasone\FixedWidth\FixedWidth;
