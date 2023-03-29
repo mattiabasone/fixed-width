@@ -1,6 +1,7 @@
 {
     "name": "mattiabasone/fixed-width",
     "description": "Library for parsing/generating fixed width files",
+    "keywords": ["fixed-width", "positional", "file", "parser"],
     "type": "library",
     "autoload": {
         "psr-4": {

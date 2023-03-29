@@ -3,7 +3,6 @@
 namespace MattiaBasone\FixedWidth;
 
 use MattiaBasone\FixedWidth\Serializer\Exception\EntityNotSerializableException;
-use MattiaBasone\FixedWidth\Serializer\SerializableProperty;
 use MattiaBasone\FixedWidth\Serializer\ObjectPropertyData;
 use MattiaBasone\FixedWidth\Serializer\ObjectStructure;
 
@@ -22,25 +21,21 @@ class Serializer
         $objectStructure = self::getObjectStructure($entity::class);
 
         if (!$objectStructure->hasFixedWidthProperties()) {
-            throw EntityNotSerializableException::noFieldAttributes();
+            throw EntityNotSerializableException::noFixedWidthPropertyAttributes();
         }
 
-        $properties = [];
+        $row = "";
         foreach ($objectStructure->properties as $property) {
-            $properties[] = new SerializableProperty(
-                $property->name(),
+            $row .= self::multibyteStringPad(
                 (string) $property->valueForEntity($entity),
-                $property->attribute
+                $property->attribute->length(),
+                $property->attribute->filler,
+                $property->attribute->align === FixedWidthProperty::ALIGN_LEFT ? STR_PAD_RIGHT : STR_PAD_LEFT,
+                $property->attribute->encoding
             );
         }
 
-        $properties = self::sortPropertiesByPosition($properties);
-
-        return array_reduce(
-            $properties,
-            self::serializePropertyCallback(),
-            ""
-        );
+        return $row;
     }
 
     /**
@@ -52,7 +47,7 @@ class Serializer
         $objectStructure = self::getObjectStructure($type);
 
         if (!$objectStructure->hasFixedWidthProperties()) {
-            throw EntityNotSerializableException::noFieldAttributes();
+            throw EntityNotSerializableException::noFixedWidthPropertyAttributes();
         }
 
         $instance = $objectStructure->reflectionClass->newInstanceWithoutConstructor();
@@ -90,6 +85,8 @@ class Serializer
             );
         }
 
+        $properties = self::sortPropertiesByPosition($properties);
+
         self::$objectStructureCache[$objectClass] = new ObjectStructure($class, $properties);
 
         return self::$objectStructureCache[$objectClass];
@@ -112,21 +109,9 @@ class Serializer
 
     private static function sortPropertiesByPosition(array $properties): array
     {
-        usort($properties, fn (SerializableProperty $first, SerializableProperty $second) => $first->field->from <=> $second->field->from);
+        usort($properties, fn (ObjectPropertyData $first, ObjectPropertyData $second) => $first->attribute->from <=> $second->attribute->from);
 
         return $properties;
-    }
-
-    private static function serializePropertyCallback(): \Closure
-    {
-        return fn (string $accumulator, SerializableProperty $serializableProperty) => $accumulator.
-            self::multibyteStringPad(
-                $serializableProperty->propertyValue,
-                $serializableProperty->field->length(),
-                $serializableProperty->field->filler,
-                $serializableProperty->field->align === FixedWidthProperty::ALIGN_LEFT ? STR_PAD_RIGHT : STR_PAD_LEFT,
-                $serializableProperty->field->encoding
-            );
     }
 
     /**

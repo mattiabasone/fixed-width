@@ -6,7 +6,7 @@ use MattiaBasone\FixedWidth\FixedWidthProperty;
 
 class EntityNotSerializableException extends \Exception
 {
-    public static function noFieldAttributes(): self
+    public static function noFixedWidthPropertyAttributes(): self
     {
         return new self("No properties found with attribute ".FixedWidthProperty::class);
     }
