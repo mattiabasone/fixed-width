@@ -3,7 +3,7 @@
 namespace MattiaBasone\FixedWidth;
 
 #[\Attribute(\Attribute::TARGET_PROPERTY)]
-readonly class Field
+readonly class FixedWidthProperty
 {
     public const ALIGN_LEFT = 'left';
     public const ALIGN_RIGHT = 'right';
@@ -13,10 +13,11 @@ readonly class Field
         public int $to,
         public string $align = "left",
         public string $filler = " ",
+        public string $encoding = "UTF-8"
     ) {
     }
 
-    public function getLength(): int
+    public function length(): int
     {
         return ($this->to - $this->from) + 1;
     }

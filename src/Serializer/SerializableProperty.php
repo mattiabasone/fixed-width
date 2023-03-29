@@ -2,14 +2,14 @@
 
 namespace MattiaBasone\FixedWidth\Serializer;
 
-use MattiaBasone\FixedWidth\Field;
+use MattiaBasone\FixedWidth\FixedWidthProperty;
 
-readonly class FixedWidthProperty
+readonly class SerializableProperty
 {
     public function __construct(
         public string $propertyName,
         public string $propertyValue,
-        public Field $field
+        public FixedWidthProperty $field
     )
     {
     }
