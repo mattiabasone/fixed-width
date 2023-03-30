@@ -21,13 +21,13 @@ use MattiaBasone\FixedWidth\FixedWidth;
 class MyObject implements FixedWidth
 {
     public function __construct(
-        #[Field(from: 0, to: 9)]
+        #[FixedWidthProperty(from: 0, to: 9)]
         public string $name,
 
-        #[Field(from: 10, to: 19)]
+        #[FixedWidthProperty(from: 10, to: 19)]
         public string $surname,
         
-        #[Field(from: 20, to: 22)]
+        #[FixedWidthProperty(from: 20, to: 22)]
         public int $age
     ) {
     
@@ -50,4 +50,27 @@ echo (new Serializer())->serialize($object);
 
 // Prints
 // "John      Smith     39 "
+```
+
+For deserialize a string into an object that implements `FixedWidth` interface and has properties with `#[FixedWidthProperty]`:
+
+```php
+<?php
+
+use MattiaBasone\FixedWidth\Serializer;
+use MyNameSpace\MyObject;
+
+$object = "John      Smith     39 ";
+
+var_dump((new Serializer())->deserialize($object, MyObject::class));
+
+// Prints:
+// class MyObject#12 (3) {
+//   public string $name =>
+//   string(4) "John"
+//   public string $surname =>
+//   string(5) "Smith"
+//   public int $age =>
+//   int(39)
+// }
 ```
