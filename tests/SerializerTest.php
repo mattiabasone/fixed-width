@@ -4,6 +4,7 @@ namespace MattiaBasone\FixedWidth\Tests;
 
 use MattiaBasone\FixedWidth\FixedWidth;
 use MattiaBasone\FixedWidth\Serializer;
+use MattiaBasone\FixedWidth\Serializer\Exception\EntityNotSerializableException;
 use MattiaBasone\FixedWidth\Tests\FakeObjects\FakeDTO;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -37,6 +38,18 @@ class SerializerTest extends TestCase
     }
 
     #[Test]
+    public function cannotSerializeEntityWithoutAttributes(): void
+    {
+        $this->expectException(EntityNotSerializableException::class);
+
+        $serializer = new Serializer();
+
+        $serializer->serialize(new class implements FixedWidth{
+            private string $field1;
+        });
+    }
+
+    #[Test]
     #[DataProvider('deserializeEntitiesDataProvider')]
     public function deserializeEntities(string $object, FixedWidth $expected): void
     {
@@ -59,5 +72,19 @@ class SerializerTest extends TestCase
                 new FakeDTO("Mariæ", "Roßi", "22", "33000000", "ITA", "00098AB21"),
             ],
         ];
+    }
+
+    #[Test]
+    public function cannotDeserializeEntityWithoutAttributes(): void
+    {
+        $this->expectException(EntityNotSerializableException::class);
+
+        $class = new class implements FixedWidth{
+            private string $field1;
+        };
+
+        $serializer = new Serializer();
+
+        $serializer->deserialize("", $class::class);
     }
 }

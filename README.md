@@ -1,5 +1,7 @@
 # fixed-width
 
+[![Coverage Status](https://coveralls.io/repos/github/mattiabasone/fixed-width/badge.svg)](https://coveralls.io/github/mattiabasone/fixed-width)
+
 This package provides some utilities for generating/parsing fixed-width (positional) files.
 This library is under development, use it in production at your own risk :D.
 
