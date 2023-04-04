@@ -20,7 +20,12 @@ readonly class ObjectPropertyData
 
     public function type(): string
     {
-        return $this->reflectionProperty->getType()?->getName();
+        $type = $this->reflectionProperty->getType();
+        return match ($type::class) {
+            \ReflectionNamedType::class => $type->getName(),
+            \ReflectionIntersectionType::class => throw new \LogicException("{$this->name()} invalid type - Intersection type is not supported"),
+            \ReflectionUnionType::class => throw new \LogicException("{$this->name()} invalid type - Union type is not supported"),
+        };
     }
 
     public function valueForEntity(FixedWidth $object): mixed

@@ -5,7 +5,7 @@ namespace MattiaBasone\FixedWidth\Serializer;
 readonly class ObjectStructure
 {
     /**
-     * @param array<ObjectPropertyData> $properties
+     * @param array<int, ObjectPropertyData> $properties
      */
     public function __construct(
         public \ReflectionClass $reflectionClass,

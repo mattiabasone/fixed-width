@@ -67,6 +67,7 @@ class Serializer
             return self::$objectStructureCache[$objectClass];
         }
 
+        /** @psalm-suppress ArgumentTypeCoercion */
         $class = new \ReflectionClass($objectClass);
 
         $properties = [];
@@ -76,7 +77,6 @@ class Serializer
                 continue;
             }
 
-            /** @var FixedWidthProperty $attribute */
             $attribute = $fieldData->newInstance();
 
             $properties[] = new ObjectPropertyData(
@@ -107,6 +107,10 @@ class Serializer
         );
     }
 
+    /**
+     * @param array<int, ObjectPropertyData> $properties
+     * @return array<int, ObjectPropertyData> $properties
+     */
     private static function sortPropertiesByPosition(array $properties): array
     {
         usort($properties, fn (ObjectPropertyData $first, ObjectPropertyData $second) => $first->attribute->from <=> $second->attribute->from);
