@@ -21,7 +21,8 @@
     ],
     "require": {
         "php": "^8.2",
-        "ext-mbstring": "*"
+        "ext-mbstring": "*",
+        "symfony/polyfill-php83": "^1.28"
     },
     "require-dev": {
         "phpunit/phpunit": "^10.0",

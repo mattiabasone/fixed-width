@@ -26,11 +26,11 @@ class Serializer
 
         $row = "";
         foreach ($objectStructure->properties as $property) {
-            $row .= self::multibyteStringPad(
+            $row .= mb_str_pad(
                 (string) $property->valueForEntity($entity),
                 $property->attribute->length(),
                 $property->attribute->filler,
-                $property->attribute->align === FixedWidthProperty::ALIGN_LEFT ? STR_PAD_RIGHT : STR_PAD_LEFT,
+                $property->attribute->align === FixedWidthProperty::ALIGN_LEFT ? \STR_PAD_RIGHT : \STR_PAD_LEFT,
                 $property->attribute->encoding
             );
         }
@@ -90,21 +90,6 @@ class Serializer
         self::$objectStructureCache[$objectClass] = new ObjectStructure($class, $properties);
 
         return self::$objectStructureCache[$objectClass];
-    }
-
-    private static function multibyteStringPad(
-        string $input,
-        int $pad_length,
-        string $pad_string = " ",
-        int $pad_style = STR_PAD_RIGHT,
-        string $encoding = "UTF-8"
-    ): string {
-        return str_pad(
-            $input,
-            strlen($input) - mb_strlen($input, $encoding) + $pad_length,
-            $pad_string,
-            $pad_style
-        );
     }
 
     /**
