@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MattiaBasone\FixedWidth\Tests;
 
 use MattiaBasone\FixedWidth\FixedWidth;
@@ -27,11 +29,11 @@ class SerializerTest extends TestCase
     {
         return [
             [
-                new FakeDTO("Mario", "Rossi", "22", "29000", "ITA", "98AB21"),
+                new FakeDTO("Mario", "Rossi", 22, 29000, "ITA", "98AB21"),
                 "Mario     Rossi     22 29000     ITA###98AB21",
             ],
             [
-                new FakeDTO("Mariæ", "Roßi", "22", "33000000", "ITA", "00098AB21"),
+                new FakeDTO("Mariæ", "Roßi", 22, 33000000, "ITA", "00098AB21"),
                 "Mariæ     Roßi      22 33000000  ITA00098AB21",
             ],
         ];
@@ -65,11 +67,11 @@ class SerializerTest extends TestCase
         return [
             [
                 "Mario     Rossi     22 29000     ITA###98AB21",
-                new FakeDTO("Mario", "Rossi", "22", "29000", "ITA", "98AB21"),
+                new FakeDTO("Mario", "Rossi", 22, 29000, "ITA", "98AB21"),
             ],
             [
                 "Mariæ     Roßi      22 33000000  ITA00098AB21",
-                new FakeDTO("Mariæ", "Roßi", "22", "33000000", "ITA", "00098AB21"),
+                new FakeDTO("Mariæ", "Roßi", 22, 33000000, "ITA", "00098AB21"),
             ],
         ];
     }

@@ -3,10 +3,10 @@
 namespace MattiaBasone\FixedWidth;
 
 #[\Attribute(\Attribute::TARGET_PROPERTY)]
-readonly class FixedWidthProperty
+final readonly class FixedWidthProperty
 {
-    public const ALIGN_LEFT = 'left';
-    public const ALIGN_RIGHT = 'right';
+    public const string ALIGN_LEFT = 'left';
+    public const string ALIGN_RIGHT = 'right';
 
     public function __construct(
         public int $from,

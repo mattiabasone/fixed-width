@@ -1,10 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MattiaBasone\FixedWidth\Serializer\Exception;
 
 use MattiaBasone\FixedWidth\FixedWidthProperty;
 
-class EntityNotSerializableException extends \Exception
+/**
+ * @internal
+ */
+final class EntityNotSerializableException extends \Exception
 {
     public static function noFixedWidthPropertyAttributes(): self
     {

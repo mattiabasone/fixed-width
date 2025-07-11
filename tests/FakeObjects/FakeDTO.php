@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MattiaBasone\FixedWidth\Tests\FakeObjects;
 
 use MattiaBasone\FixedWidth\FixedWidthProperty;

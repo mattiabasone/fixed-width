@@ -1,8 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MattiaBasone\FixedWidth\Serializer;
 
-readonly class ObjectStructure
+/**
+ * @internal
+ */
+final readonly class ObjectStructure
 {
     /**
      * @param array<int, ObjectPropertyData> $properties

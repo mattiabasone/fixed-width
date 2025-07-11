@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MattiaBasone\FixedWidth;
 
 use MattiaBasone\FixedWidth\Serializer\Exception\EntityNotSerializableException;
 use MattiaBasone\FixedWidth\Serializer\ObjectPropertyData;
 use MattiaBasone\FixedWidth\Serializer\ObjectStructure;
 
-class Serializer
+final class Serializer
 {
     /**
      * @var array<ObjectStructure>

@@ -1,11 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MattiaBasone\FixedWidth\Serializer;
 
 use MattiaBasone\FixedWidth\FixedWidth;
 use MattiaBasone\FixedWidth\FixedWidthProperty;
 
-readonly class ObjectPropertyData
+/**
+ * @internal
+ */
+final readonly class ObjectPropertyData
 {
     public function __construct(
         public \ReflectionProperty $reflectionProperty,
